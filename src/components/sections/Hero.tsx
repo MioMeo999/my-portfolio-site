@@ -17,7 +17,8 @@ const Hero = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/images/bg-home.jpg)' }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-brand-dark"></div>
+        {/* Lowered overlay opacity so background is more visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-brand-dark/20"></div>
       </div>
 
       {/* Content */}
