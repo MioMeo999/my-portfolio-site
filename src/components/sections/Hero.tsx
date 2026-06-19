@@ -11,19 +11,13 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video/Image */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/images/bg-home.jpg)' }}
+        ></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-brand-dark"></div>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-          poster="/images/hero-fallback.jpg"
-        >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-        </video>
       </div>
 
       {/* Content */}
