@@ -1,0 +1,8 @@
+.vercelignore
+node_modules
+.git
+.gitignore
+.env.example
+README.md
+DEPLOYMENT.md
+CONTRIBUTING.md

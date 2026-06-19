@@ -17,8 +17,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        serif: ['var(--font-playfair)'],
+        sans: ['var(--font-inter)'],
       },
       spacing: {
         'safe-top': 'env(safe-area-inset-top)',
