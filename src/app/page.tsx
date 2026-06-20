@@ -1,5 +1,6 @@
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
+import UpcomingPerformances from '@/components/sections/UpcomingPerformances'
 import PerformanceTimeline from '@/components/sections/PerformanceTimeline'
 import PerformanceVideos from '@/components/sections/PerformanceVideos'
 import PressMedia from '@/components/sections/PressMedia'
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <About />
+      <UpcomingPerformances />
       <PerformanceTimeline />
       <PerformanceVideos />
       <PressMedia />

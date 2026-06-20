@@ -50,7 +50,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-gray-300 text-lg md:text-xl max-w-2xl mb-12"
         >
-          PhD Candidate, University of Leeds | UK-China Cultural Ambassador
+          Strings that connect East and West, melodies that speak to all hearts.
         </motion.p>
 
         {/* CTA Buttons */}

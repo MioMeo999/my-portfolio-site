@@ -44,15 +44,7 @@ const About = () => {
             className="space-y-6"
           >
             <p className="text-gray-300 text-lg leading-relaxed">
-              Lijun Zhang is an accomplished Guzheng performer and PhD candidate at the University of Leeds, specializing in the intersection of traditional Chinese music and contemporary cultural diplomacy. With a career spanning international performances and cultural ambassadorship, Lijun brings the ancient art of Guzheng to audiences across the UK and beyond.
-            </p>
-
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Her performances have graced prestigious venues including the Merrison Centre, Manchester Chinatown Festival, and the Confucius Institute. Lijun's work has been featured on CCTV News Network, People's Daily, and CGTN, establishing her as a leading voice in UK-China cultural exchange. Through her PhD research and performances, she continues to bridge classical Chinese artistry with contemporary audiences.
-            </p>
-
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Beyond concert halls, Lijun is deeply committed to music education and cultural outreach, regularly conducting workshops and masterclasses in schools across the region. Her mission is to foster greater understanding and appreciation of traditional Chinese music while championing the role of cultural ambassadors in building global connections.
+              Lijun Zhang is an accomplished Guzheng performer and PhD candidate at the University of Leeds. His performances have graced venues such as the Merrison Centre, Manchester Chinatown Festival, and the Confucius Institute, and his work has been featured on CCTV, People's Daily, and CGTN, establishing him as a leading voice in UK-China exchange. Beyond the stage, he is deeply committed to music education, regularly conducting workshops and masterclasses in schools across the region. Through his performances and educational outreach, he bridges classical Chinese traditions with contemporary audiences, fostering cross-cultural understanding and championing the role of cultural ambassadors in building global connections.
             </p>
 
             <div className="pt-6 flex flex-wrap gap-4">
