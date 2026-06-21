@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import '@/styles/globals.css'
 import Header from '@/components/Header'
@@ -7,10 +7,16 @@ import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
+// ✅ 独立导出 viewport（Next.js 14+ 规范）
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   title: 'Lijun Zhang - Guzheng Artist & PhD Candidate',
   description: 'Lijun Zhang is a Guzheng performer and PhD candidate at the University of Leeds, serving as a UK-China cultural ambassador.',
-  viewport: 'width=device-width, initial-scale=1',
+  // ❌ viewport 已从此处移除
   openGraph: {
     title: 'Lijun Zhang - Guzheng Artist & PhD Candidate',
     description: 'Guzheng performer and cultural ambassador based in the UK',
