@@ -1,15 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { Heart, Instagram, Youtube, Mail } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 const Footer = () => {
-  const [year, setYear] = useState<number>(new Date().getFullYear())
-
-  useEffect(() => {
-    setYear(new Date().getFullYear())
-  }, [])
+  const year = new Date().getFullYear() // ✅ 简化为常量
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram', title: 'Instagram' },
