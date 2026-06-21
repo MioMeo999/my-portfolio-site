@@ -70,4 +70,4 @@ Since only a source code file is modified and no build artifacts, dependencies, 
 
 ```gitignore
 
-```
+```.next/

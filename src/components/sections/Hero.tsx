@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import Image from 'next/image'
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -11,29 +12,31 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* 背景图片 */}
       <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/bg-home.jpg)' }}
-        ></div>
-        {/* Lowered overlay opacity so background is more visible */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-brand-dark/20"></div>
+        <Image
+          src="/images/bg-home.jpg"
+          alt="Lijun Zhang performance background"
+          fill
+          className="object-cover"
+          priority
+          quality={90}
+        />
+        {/* 加深遮罩 - 确保文字清晰可见 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-brand-dark/90" />
       </div>
 
-      {/* Content */}
+      {/* 内容 */}
       <div className="relative z-10 container-custom text-center flex flex-col items-center justify-center min-h-screen">
-        {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="heading-xl text-white mb-4"
+          className="heading-xl text-brand-gold mb-4"
         >
           Lijun Zhang
         </motion.h1>
 
-        {/* Subheading */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,7 +46,6 @@ const Hero = () => {
           Guzheng Artist
         </motion.p>
 
-        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,29 +55,22 @@ const Hero = () => {
           Strings that connect East and West, melodies that speak to all hearts.
         </motion.p>
 
-        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-6"
         >
-          <button
-            onClick={() => scrollToSection('videos')}
-            className="btn-primary"
-          >
+          <button onClick={() => scrollToSection('videos')} className="btn-primary">
             Watch My Performance
           </button>
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="btn-secondary"
-          >
+          <button onClick={() => scrollToSection('contact')} className="btn-secondary">
             Contact Me
           </button>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* 滚动指示器 */}
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
