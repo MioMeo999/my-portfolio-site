@@ -2,241 +2,195 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Play, X } from 'lucide-react'
-import type { Video } from '@/types'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
-const videoData: Video[] = [
+const allVideos = [
+  // ✅ 精选视频（默认显示4个）
   {
     id: '1',
-    title: 'Live at Manchester Chinatown Festival 2024',
-    date: '2024-06-15',
-    description: 'A captivating performance of traditional Guzheng pieces at the Manchester Chinatown Festival.',
-    posterUrl: '/images/video-1-poster.jpg',
-    videoUrl: '/videos/performance-1.mp4',
-    type: 'self-hosted',
-    duration: '8:45',
+    title: 'Guzheng | Dance of Yi People',
+    youtubeId: 'y6bHlgyxbIA',
+    category: 'Solo',
+    featured: true,
   },
   {
     id: '2',
-    title: 'Guzheng Masterclass - Leeds Confucius Institute',
-    date: '2024-05-20',
-    description: 'Educational masterclass on traditional Guzheng techniques and contemporary arrangements.',
-    posterUrl: '/images/video-2-poster.jpg',
-    embedId: 'dQw4w9WgXcQ',
-    type: 'youtube',
-    duration: '12:30',
+    title: 'Guzheng & Indian Dance Improvisation at LUBS Summer Celebration',
+    youtubeId: '1du3kbAu-MU',
+    category: 'Cross-Cultural',
+    featured: true,
   },
   {
     id: '3',
-    title: 'Cultural Ambassador Interview - CGTN',
-    date: '2024-04-10',
-    description: 'Interview discussing UK-China cultural exchange and the role of traditional music in modern society.',
-    posterUrl: '/images/video-3-poster.jpg',
-    embedId: 'dQw4w9WgXcQ',
-    type: 'youtube',
-    duration: '15:20',
+    title: 'Guzheng | Bai Suzhen at the Foot of Mount Qingcheng',
+    youtubeId: 'RfXDqO6S0Lo',
+    category: 'Solo',
+    featured: true,
   },
   {
     id: '4',
-    title: 'Spring Concert Highlights',
-    date: '2024-03-15',
-    description: 'Highlights from the spring concert series featuring both classical and contemporary pieces.',
-    posterUrl: '/images/video-4-poster.jpg',
-    videoUrl: '/videos/spring-concert.mp4',
-    type: 'self-hosted',
-    duration: '10:15',
+    title: 'Ensemble of Folk Chinese Instruments',
+    youtubeId: 'r_z4RZtPSLE',
+    category: 'Ensemble',
+    featured: true,
   },
+  // 📦 收起视频
   {
     id: '5',
-    title: 'Traditional Guzheng Techniques - Tutorial',
-    date: '2024-02-28',
-    description: 'A comprehensive guide to essential Guzheng playing techniques for beginners and intermediate players.',
-    posterUrl: '/images/video-5-poster.jpg',
-    embedId: 'dQw4w9WgXcQ',
-    type: 'youtube',
-    duration: '22:45',
+    title: 'Guzheng + Piano | Liuyang River',
+    youtubeId: 'FyOBZPbyq5s',
+    category: 'Solo',
+    featured: false,
   },
   {
     id: '6',
-    title: 'Fusion Performance - East Meets West',
-    date: '2024-01-20',
-    description: 'An experimental fusion of traditional Guzheng with contemporary Western instruments.',
-    posterUrl: '/images/video-6-poster.jpg',
-    videoUrl: '/videos/fusion-performance.mp4',
-    type: 'self-hosted',
-    duration: '9:30',
+    title: 'Guzheng by Candlelight in a Leeds Church',
+    youtubeId: '4UZzD0JfEwE',
+    category: 'Solo',
+    featured: false,
+  },
+  {
+    id: '7',
+    title: '古筝和乐队《月亮代表我的心》',
+    youtubeId: 'L9H6VtqMlek',
+    category: 'Shorts',
+    featured: false,
+  },
+  {
+    id: '8',
+    title: '二胡·古筝《赛马》',
+    youtubeId: 'qnjTbQZmFGM',
+    category: 'Shorts',
+    featured: false,
   },
 ]
 
 const PerformanceVideos = () => {
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null)
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const [showAll, setShowAll] = useState(false)
 
-  const openVideo = (video: Video, index: number) => {
-    setSelectedVideo(video)
-    setCurrentIndex(index)
-  }
-
-  const nextVideo = () => {
-    const nextIdx = (currentIndex + 1) % videoData.length
-    setSelectedVideo(videoData[nextIdx])
-    setCurrentIndex(nextIdx)
-  }
-
-  const prevVideo = () => {
-    const prevIdx = (currentIndex - 1 + videoData.length) % videoData.length
-    setSelectedVideo(videoData[prevIdx])
-    setCurrentIndex(prevIdx)
-  }
+  const featuredVideos = allVideos.filter((v) => v.featured)
+  const moreVideos = allVideos.filter((v) => !v.featured)
+  const displayVideos = showAll ? allVideos : featuredVideos
+  const isFeaturedView = !showAll
 
   return (
-    <section id="videos" className="section-padding bg-gradient-to-b from-brand-dark to-black">
+    <section
+      id="videos"
+      className="section-padding bg-gradient-to-b from-brand-dark to-black"
+    >
       <div className="container-custom">
+        {/* 标题 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="heading-lg text-brand-gold mb-6">Performance Videos</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Watch selected performances, masterclasses, and cultural features showcasing the art of Guzheng.</p>
+          <h2 className="heading-lg text-brand-gold mb-4">
+            Selected Performances
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+            A curated collection of performances, collaborations,
+            and cultural engagements across the United Kingdom and beyond.
+          </p>
         </motion.div>
 
-        {/* Video Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-          {videoData.map((video, index) => (
-            <motion.div
+        {/* 视频网格 - 精选视图2列，全部视图3列 */}
+        <div
+          className={`grid gap-6 max-w-5xl mx-auto ${
+            isFeaturedView
+              ? 'grid-cols-1 md:grid-cols-2'
+              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+          }`}
+        >
+          {displayVideos.map((video, index) => (
+            <motion.a
               key={video.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              onClick={() => openVideo(video, index)}
-              className="relative group cursor-pointer h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: Math.min(index * 0.08, 0.4) }}
+              whileHover={{ y: -6 }}
+              className="group relative overflow-hidden rounded-xl border border-brand-gold/10 hover:border-brand-gold/50 transition-all duration-300 bg-gray-900/50"
             >
-              {/* Poster/Thumbnail */}
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/20 to-brand-red/20 flex items-center justify-center">
-                <span className="text-gray-400">Video Thumbnail</span>
+              {/* 封面图 */}
+              <div className="aspect-video overflow-hidden bg-gray-800">
+                <img
+                  src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                  alt={video.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300"></div>
+              {/* 底部信息 */}
+              <div className="p-4">
+                <h3 className="text-sm md:text-base font-serif text-white leading-tight line-clamp-2 group-hover:text-brand-gold transition-colors duration-300">
+                  {video.title}
+                </h3>
 
-              {/* Play Button */}
-              <motion.div
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-                className="absolute inset-0 flex items-center justify-center z-10"
-              >
-                <div className="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
-                  <Play size={32} className="text-brand-dark fill-brand-dark ml-1" />
+                <div className="flex items-center justify-between mt-3">
+                  <span className="text-[10px] uppercase tracking-wider text-gray-500">
+                    {video.category}
+                  </span>
+                  <span className="text-brand-gold text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                    Watch on YouTube
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      <path d="M7 17l9.2-9.2M17 17V7H7" />
+                    </svg>
+                  </span>
                 </div>
-              </motion.div>
-
-              {/* Duration Badge */}
-              <div className="absolute bottom-3 right-3 bg-black/70 px-2 py-1 rounded text-xs font-medium text-brand-gold z-10">
-                {video.duration}
               </div>
 
-              {/* Video Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                <p className="text-xs text-brand-gold mb-1">
-                  {new Date(video.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </p>
-                <h3 className="text-sm font-semibold text-white line-clamp-2">{video.title}</h3>
-              </div>
-            </motion.div>
+              {/* Featured 角标 */}
+              {video.featured && (
+                <div className="absolute top-3 left-3 px-2.5 py-1 bg-brand-gold/90 backdrop-blur-sm rounded-full">
+                  <span className="text-brand-dark text-[9px] font-bold uppercase tracking-wider">
+                    Featured
+                  </span>
+                </div>
+              )}
+            </motion.a>
           ))}
         </div>
-      </div>
 
-      {/* Video Modal */}
-      {selectedVideo && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedVideo(null)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="relative w-full max-w-4xl rounded-lg overflow-hidden shadow-2xl"
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedVideo(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-brand-dark/80 hover:bg-brand-dark rounded-full flex items-center justify-center text-white transition-all duration-300"
+        {/* Load More / Show Less 按钮 */}
+        {moreVideos.length > 0 && (
+          <div className="flex justify-center mt-10">
+            <motion.button
+              onClick={() => setShowAll(!showAll)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-brand-gold/40 text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 font-medium text-sm"
             >
-              <X size={24} />
-            </button>
-
-            {/* Video Player */}
-            <div className="aspect-video bg-black flex items-center justify-center relative">
-              {selectedVideo.type === 'self-hosted' ? (
-                <video
-                  autoPlay
-                  controls
-                  className="w-full h-full"
-                  src={selectedVideo.videoUrl}
-                />
+              {showAll ? (
+                <>
+                  <ChevronUp size={18} />
+                  Show Less
+                </>
               ) : (
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={`https://www.youtube.com/embed/${selectedVideo.embedId}?autoplay=1&rel=0&enablejsapi=1`}
-                  title={selectedVideo.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <>
+                  <ChevronDown size={18} />
+                  Load More ({moreVideos.length} more videos)
+                </>
               )}
-            </div>
-
-            {/* Modal Content */}
-            <div className="bg-brand-dark/80 backdrop-blur-sm p-6 md:p-8">
-              <p className="text-brand-gold text-sm font-medium mb-2">
-                {new Date(selectedVideo.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-              <h2 className="heading-md text-white mb-3">{selectedVideo.title}</h2>
-              <p className="text-gray-300 leading-relaxed mb-6">{selectedVideo.description}</p>
-
-              {/* Navigation */}
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-400">
-                  {currentIndex + 1} / {videoData.length}
-                </div>
-                <div className="flex gap-3">
-                  <button
-                    onClick={prevVideo}
-                    className="px-6 py-2 bg-brand-gold/20 hover:bg-brand-gold/40 text-brand-gold rounded-lg transition-colors duration-300"
-                  >
-                    ← Previous
-                  </button>
-                  <button
-                    onClick={nextVideo}
-                    className="px-6 py-2 bg-brand-gold/20 hover:bg-brand-gold/40 text-brand-gold rounded-lg transition-colors duration-300"
-                  >
-                    Next →
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
+            </motion.button>
+          </div>
+        )}
+      </div>
     </section>
   )
 }

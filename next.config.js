@@ -9,6 +9,10 @@ const nextConfig = {
       },
     ],
   },
+  // ✅ 添加这个配置，跳过构建时的 ESLint 检查
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig

@@ -52,7 +52,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-gray-300 text-lg md:text-xl max-w-2xl mb-12"
         >
-          Strings that connect East and West, melodies that speak to all hearts.
+          Bringing the timeless voice of the Guzheng to audiences across cultures and generations.
         </motion.p>
 
         <motion.div
