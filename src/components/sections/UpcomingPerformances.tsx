@@ -7,7 +7,7 @@ import { Calendar, Clock, MapPin } from 'lucide-react'
 const EVENT_INFO = {
   title: 'Summer Celebration Special',
   subtitle: 'A Fusion of Chinese Melody & Indian Dance',
-  date: 'Saturday, 12 July 2026',
+  date: 'Friday, 26 June 2026',
   time: '4:30 – 5:30pm',
   location: 'Wellbeing Hub, University of Leeds',
   posterSrc: '/images/events/summer-celebration-2026.png',

@@ -13,7 +13,7 @@ const performanceData: Performance[] = [
     id: '19',
     date: '2026-05-15', // ⚠️ 请替换为实际日期
     venue: 'University of Leeds',
-    event: 'Incredible Musical Workshop Brings the Silk Road to Life',
+    event: 'Musical Workshop Brings the Silk Road to Life',
     description: 'An immersive musical workshop exploring the rich cultural heritage of the Silk Road, bringing together traditional Chinese instruments and cross-cultural musical traditions. Participants experienced firsthand the historical connections between East and West through live performance, interactive demonstrations, and collaborative music-making sessions.',
     category: 'uk-venues',
     images: ['/images/timeline/silk-road-workshop-2026.jpg'], // ⚠️ 请确认文件名与你上传的一致
