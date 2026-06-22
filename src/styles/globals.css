@@ -24,17 +24,9 @@ body {
   @apply py-16 md:py-24 lg:py-32;
 }
 
-.heading-xl {
-  @apply text-4xl md:text-5xl lg:text-6xl font-serif font-bold;
-}
-
-.heading-lg {
-  @apply text-3xl md:text-4xl lg:text-5xl font-serif font-bold;
-}
-
-.heading-md {
-  @apply text-2xl md:text-3xl font-serif font-semibold;
-}
+.heading-xl { @apply text-4xl md:text-5xl lg:text-6xl font-serif font-bold; }
+.heading-lg { @apply text-3xl md:text-4xl lg:text-5xl font-serif font-bold; }
+.heading-md { @apply text-2xl md:text-3xl font-serif font-semibold; }
 
 .btn-primary {
   @apply px-8 py-3 bg-brand-gold text-brand-dark font-semibold rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl;
@@ -60,20 +52,50 @@ body {
   @apply bg-gradient-to-r from-brand-gold to-brand-red bg-clip-text text-transparent;
 }
 
-/* Smooth scrollbar for webkit browsers */
-::-webkit-scrollbar {
-  width: 10px;
+/* 滚动条美化 */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+::-webkit-scrollbar-thumb { background: rgba(201, 169, 110, 0.5); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 169, 110, 0.8); }
+/* =========================================
+   🆕 卡片悬停 - 舞台聚光灯光效
+   ========================================= */
+
+/* 卡片基础容器：必须设置 relative 和 overflow-hidden */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+/* 光晕伪元素：默认隐藏，悬停时显现 */
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(201, 169, 110, 0.15) 0%,   /* brand-gold 的半透明光晕 */
+    transparent 60%
+  );
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none; /* 确保光晕不会阻挡点击事件 */
+  z-index: 1;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(201, 169, 110, 0.5);
-  border-radius: 5px;
+/* 悬停时激活光晕 */
+.card-spotlight:hover::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 169, 110, 0.8);
+/* ♿ 无障碍保护：减少动画模式下禁用光晕过渡 */
+@media (prefers-reduced-motion: reduce) {
+  .card-spotlight::before {
+    transition: none !important;
+  }
 }

@@ -8,6 +8,17 @@ import type { Performance } from '@/types'
 
 // 演出数据按日期倒序排列（最新在前）
 const performanceData: Performance[] = [
+  // ✅ 新增：Silk Road Musical Workshop
+  {
+    id: '19',
+    date: '2026-05-15', // ⚠️ 请替换为实际日期
+    venue: 'University of Leeds',
+    event: 'Incredible Musical Workshop Brings the Silk Road to Life',
+    description: 'An immersive musical workshop exploring the rich cultural heritage of the Silk Road, bringing together traditional Chinese instruments and cross-cultural musical traditions. Participants experienced firsthand the historical connections between East and West through live performance, interactive demonstrations, and collaborative music-making sessions.',
+    category: 'uk-venues',
+    images: ['/images/timeline/silk-road-workshop-2026.jpg'], // ⚠️ 请确认文件名与你上传的一致
+    link: 'https://confucius.leeds.ac.uk/news/incredible-musical-workshop-brings-the-silk-road-to-life/',
+  },
   // ✅ 新增：Swire Chinese Language Day 十周年庆典（2026年6月4日）
   {
     id: '1',
@@ -192,7 +203,7 @@ const performanceData: Performance[] = [
   },
 ]
 
-// 智能自适应图片组件 - 根据比例动态调整
+// 智能自适应图片组件 - 根据比例动态调整（保持不变）
 const AdaptiveImage = ({ src, alt }: { src: string; alt: string }) => {
   const [imageStyle, setImageStyle] = useState<{
     aspectClass: string
@@ -209,36 +220,19 @@ const AdaptiveImage = ({ src, alt }: { src: string; alt: string }) => {
       const ratio = img.naturalWidth / img.naturalHeight
 
       if (ratio > 1.6) {
-        setImageStyle({
-          aspectClass: 'aspect-[16/9]',
-          objectClass: 'object-cover',
-        })
+        setImageStyle({ aspectClass: 'aspect-[16/9]', objectClass: 'object-cover' })
       } else if (ratio > 1.2) {
-        setImageStyle({
-          aspectClass: 'aspect-[4/3]',
-          objectClass: 'object-cover',
-        })
+        setImageStyle({ aspectClass: 'aspect-[4/3]', objectClass: 'object-cover' })
       } else if (ratio > 0.85) {
-        setImageStyle({
-          aspectClass: 'aspect-[1/1]',
-          objectClass: 'object-cover',
-        })
+        setImageStyle({ aspectClass: 'aspect-[1/1]', objectClass: 'object-cover' })
       } else if (ratio > 0.6) {
-        setImageStyle({
-          aspectClass: 'aspect-[3/4]',
-          objectClass: 'object-contain',
-        })
+        setImageStyle({ aspectClass: 'aspect-[3/4]', objectClass: 'object-contain' })
       } else {
-        setImageStyle({
-          aspectClass: 'aspect-[9/16]',
-          objectClass: 'object-contain',
-        })
+        setImageStyle({ aspectClass: 'aspect-[9/16]', objectClass: 'object-contain' })
       }
       setIsLoading(false)
     }
-    img.onerror = () => {
-      setIsLoading(false)
-    }
+    img.onerror = () => setIsLoading(false)
     img.src = src
   }, [src])
 
@@ -261,6 +255,20 @@ const AdaptiveImage = ({ src, alt }: { src: string; alt: string }) => {
       )}
     </div>
   )
+}
+
+// 🆕 统一的卡片悬停变体（降阶版，适合图文叙事）
+const cardHoverVariant = {
+  rest: {
+    y: 0,
+    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+    transition: { type: 'tween', ease: 'easeOut', duration: 0.3 },
+  },
+  hover: {
+    y: -4,
+    boxShadow: '0 12px 24px rgba(0,0,0,0.35)',
+    transition: { type: 'spring', stiffness: 400, damping: 25 },
+  },
 }
 
 const PerformanceTimeline = () => {
@@ -288,6 +296,7 @@ const PerformanceTimeline = () => {
   return (
     <section id="performances" className="section-padding bg-brand-dark">
       <div className="container-custom">
+        {/* 标题区 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -327,7 +336,7 @@ const PerformanceTimeline = () => {
         {/* Timeline */}
         <div className="relative">
           {/* Center Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-brand-gold/40 via-brand-gold/60 to-transparent"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-brand-gold/40 via-brand-gold/60 to-transparent hidden md:block"></div>
 
           {/* Timeline Items */}
           <div className="space-y-16">
@@ -343,33 +352,40 @@ const PerformanceTimeline = () => {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  {/* 卡片 - 左右分栏布局 */}
-                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch ${
-                    isEven ? '' : 'md:grid-flow-col-dense'
-                  }`}>
-                    
-                    {/* 图片区域 */}
+                  {/* 🆕 整行卡片容器 - 统一悬停热区 */}
+                  <motion.div
+                    variants={cardHoverVariant}
+                    initial="rest"
+                    whileHover="hover"
+                    className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch rounded-xl p-2 -mx-2 ${
+                      isEven ? '' : 'md:grid-flow-col-dense'
+                    }`}
+                  >
+                    {/* 图片区域 - 带聚光灯效果 */}
                     <div className={`${isEven ? 'md:col-start-1' : 'md:col-start-2'} order-1 ${
                       isEven ? 'md:order-1' : 'md:order-2'
                     }`}>
-                      {performance.images.length > 0 && performance.link && (
-                        <a
-                          href={performance.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block transition-transform duration-300 hover:scale-[1.01]"
-                        >
-                          <AdaptiveImage
-                            src={performance.images[0]}
-                            alt={performance.event}
-                          />
-                        </a>
-                      )}
-                      {performance.images.length > 0 && !performance.link && (
-                        <AdaptiveImage
-                          src={performance.images[0]}
-                          alt={performance.event}
-                        />
+                      {performance.images.length > 0 && (
+                        <div className="card-spotlight rounded-lg overflow-hidden border border-white/5">
+                          {performance.link ? (
+                            <a
+                              href={performance.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block"
+                            >
+                              <AdaptiveImage
+                                src={performance.images[0]}
+                                alt={performance.event}
+                              />
+                            </a>
+                          ) : (
+                            <AdaptiveImage
+                              src={performance.images[0]}
+                              alt={performance.event}
+                            />
+                          )}
+                        </div>
                       )}
                     </div>
 
@@ -377,7 +393,7 @@ const PerformanceTimeline = () => {
                     <div className={`flex flex-col justify-center ${
                       isEven ? 'md:col-start-2' : 'md:col-start-1'
                     } order-2 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-                      <div className="space-y-3">
+                      <div className="space-y-3 px-2 md:px-4">
                         <p className="text-brand-gold text-sm font-medium tracking-wide">
                           {new Date(performance.date).toLocaleDateString('en-US', {
                             year: 'numeric',
@@ -407,10 +423,10 @@ const PerformanceTimeline = () => {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* 时间轴圆点 */}
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center">
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center z-10">
                     <div className="w-5 h-5 bg-brand-gold rounded-full border-4 border-brand-dark shadow-lg shadow-brand-gold/30"></div>
                   </div>
                 </motion.div>
@@ -421,8 +437,10 @@ const PerformanceTimeline = () => {
           {/* Load More / Show Less 按钮 */}
           {filtered.length > 5 && (
             <div className="flex justify-center mt-16">
-              <button
+              <motion.button
                 onClick={() => setShowAll(!showAll)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 font-medium"
               >
                 {showAll ? (
@@ -436,7 +454,7 @@ const PerformanceTimeline = () => {
                     Load More ({filtered.length - 5} more)
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
           )}
         </div>

@@ -112,8 +112,13 @@ const PerformanceVideos = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: Math.min(index * 0.08, 0.4) }}
-              whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-xl border border-brand-gold/10 hover:border-brand-gold/50 transition-all duration-300 bg-gray-900/50"
+              // 🎯 升级：弹簧物理上浮 + 动态阴影
+              whileHover={{ 
+                y: -8, 
+                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                transition: { type: 'spring', stiffness: 300, damping: 20 }
+              }}
+              className="card-spotlight group relative overflow-hidden rounded-xl border border-brand-gold/10 hover:border-brand-gold/50 bg-gray-900/50"
             >
               {/* 封面图 */}
               <div className="aspect-video overflow-hidden bg-gray-800">
@@ -157,7 +162,7 @@ const PerformanceVideos = () => {
 
               {/* Featured 角标 */}
               {video.featured && (
-                <div className="absolute top-3 left-3 px-2.5 py-1 bg-brand-gold/90 backdrop-blur-sm rounded-full">
+                <div className="absolute top-3 left-3 px-2.5 py-1 bg-brand-gold/90 backdrop-blur-sm rounded-full z-20">
                   <span className="text-brand-dark text-[9px] font-bold uppercase tracking-wider">
                     Featured
                   </span>
