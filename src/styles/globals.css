@@ -153,3 +153,35 @@ body {
 html {
   scroll-padding-top: 80px; /* 对应 Header 的 md:h-20 = 5rem = 80px */
 }
+/* =========================================
+   🆕 Header 智能混合玻璃 - 无障碍 & 性能
+   ========================================= */
+
+/* ♿ 减少透明效果偏好：自动降级为纯色深灰背景 */
+@media (prefers-reduced-transparency: reduce) {
+  header.fixed {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(18, 18, 22, 0.98) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
+  }
+  
+  /* 隐藏安全衬底层 */
+  header.fixed > div:first-child {
+    display: none !important;
+  }
+}
+
+/* ⚡ Safari/iOS 性能优化：强制合成层，防止滚动掉帧 */
+@supports (-webkit-touch-callout: none) {
+  header.fixed {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* 🎨 文字阴影增强：确保金色文字在亮色背景上依然可读 */
+header a, header span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
