@@ -32,10 +32,11 @@ const Header = () => {
   // 🆕 玻璃边缘高光：模拟切面反光
   const borderOpacity = 0.08 + 0.1 * scrollProgress
 
+  // ✅ 已更新：Performances → Highlights
   const navLinks = [
     { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
-    { href: '#performances', label: 'Performances' },
+    { href: '#highlights', label: 'Highlights' },
     { href: '#videos', label: 'Videos' },
     { href: '#press', label: 'Press' },
     { href: '#contact', label: 'Contact' },
@@ -75,10 +76,11 @@ const Header = () => {
         />
 
         <div className="container-custom relative flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="#" className="flex flex-col transition-transform duration-300 hover:scale-105 relative z-10">
-            <span className="font-serif text-2xl md:text-3xl font-bold text-brand-gold drop-shadow-sm">LZ</span>
-            <span className="text-xs md:text-sm text-brand-gold/80 drop-shadow-sm">Guzheng Artist</span>
+          {/* ✅ Logo - 只保留 LZ，删除副标题 */}
+          <Link href="/" className="transition-transform duration-300 hover:scale-105 relative z-10">
+            <span className="font-serif text-2xl md:text-3xl font-bold text-brand-gold drop-shadow-sm tracking-wider">
+              LZ
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
