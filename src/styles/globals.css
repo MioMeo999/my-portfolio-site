@@ -99,3 +99,57 @@ body {
     transition: none !important;
   }
 }
+/* =========================================
+   🆕 暗色液态玻璃框 (Dark Liquid Glass)
+   专为深色背景 + 品牌金色调定制
+   ========================================= */
+
+.glass-panel {
+  /* 1. 基础形状 */
+  position: relative;
+  border-radius: 24px;
+  
+  /* 2. 材质：极淡的品牌金 + 高斯模糊 + 饱和度增强 */
+  background: rgba(201, 169, 110, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  /* 3. 边框：双层模拟玻璃切面反光 */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  
+  /* 4. 阴影系统：外投影 + 顶部内高光 + 底部内反光 */
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  
+  /* 5. 过渡动画：Apple 风格弹性曲线 */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 悬停态：上浮 + 光泽增强 */
+.glass-panel:hover {
+  transform: translateY(-4px);
+  background: rgba(201, 169, 110, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ♿ 无障碍保护：减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  .glass-panel {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+/* =========================================
+   🆕 导航栏辅助样式 (仅保留必要部分)
+   ========================================= */
+
+/* 锚点跳转偏移补偿（防止被固定导航栏遮挡） */
+html {
+  scroll-padding-top: 80px; /* 对应 Header 的 md:h-20 = 5rem = 80px */
+}

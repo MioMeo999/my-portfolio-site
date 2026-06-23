@@ -11,7 +11,6 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 滚动进度：0 → 1（滚动 120px 达到最大值）
       const progress = Math.min(window.scrollY / 120, 1)
       setScrollProgress(progress)
     }
@@ -20,11 +19,13 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // 根据滚动进度计算样式值（连续渐变）
-  const bgOpacity = 0.85 * scrollProgress
-  const blurAmount = 16 * scrollProgress
-  const borderOpacity = 0.15 * scrollProgress
-  const shadowOpacity = 0.3 * scrollProgress
+  // --- Apple / OpenDesign 风格参数 ---
+  // 关键：所有值在 scrollProgress=0 时必须为 0/none，实现完全融入
+  const bgOpacity = 0.7 * scrollProgress        // 最大 0.7，不过度遮挡
+  const blurAmount = 16 * scrollProgress         // 16px 足够，保留背景纹理
+  const saturateAmount = 120 + 60 * scrollProgress // 从 120% → 180%
+  const borderOpacity = 0.12 * scrollProgress    // 极淡白边，模拟玻璃切面
+  // ❌ 完全移除 boxShadow，悬浮感仅靠边框和背景对比实现
 
   const navLinks = [
     { href: '#home', label: 'Home' },
@@ -38,13 +39,21 @@ const Header = () => {
   return (
     <>
       <header
-        className="fixed top-0 w-full z-50 transition-all duration-150 ease-out border-b"
+        className="fixed top-0 w-full z-50 transition-all duration-300 ease-out"
         style={{
-          backgroundColor: `rgba(26, 26, 26, ${bgOpacity})`,
-          backdropFilter: `blur(${blurAmount}px)`,
-          WebkitBackdropFilter: `blur(${blurAmount}px)`,
-          borderColor: `rgba(201, 169, 110, ${borderOpacity})`,
-          boxShadow: `0 4px 30px rgba(0, 0, 0, ${shadowOpacity})`,
+          // 背景：带微蓝调的深色，比纯黑更像真实玻璃
+          backgroundColor: `rgba(18, 18, 22, ${bgOpacity})`,
+          
+          // 模糊 + 饱和度：Apple 标志性通透感
+          backdropFilter: `blur(${blurAmount}px) saturate(${saturateAmount}%)`,
+          WebkitBackdropFilter: `blur(${blurAmount}px) saturate(${saturateAmount}%)`,
+          
+          // 边框：仅在滚动时出现，模拟玻璃边缘高光
+          borderBottom: scrollProgress > 0 
+            ? `1px solid rgba(255, 255, 255, ${borderOpacity})` 
+            : '1px solid transparent',
+          
+          // ❌ 无 box-shadow！
         }}
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-20">
@@ -84,9 +93,10 @@ const Header = () => {
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           className="md:hidden overflow-hidden"
           style={{
-            backgroundColor: 'rgba(26, 26, 26, 0.95)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
+            backgroundColor: 'rgba(18, 18, 22, 0.92)',
+            backdropFilter: 'blur(20px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
           }}
         >
           <nav className="flex flex-col gap-1 p-4">
