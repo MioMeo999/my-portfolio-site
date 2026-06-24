@@ -65,14 +65,14 @@ const Hero = () => {
           Using the Guzheng to create meaningful connections across cultures, communities, and generations.
         </motion.p>
 
-        {/* 4. CTA 按钮组 - ✅ 锚点已修复 */}
+        {/* 4. CTA 按钮组 - ✅ 锚点已修复为 highlights */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex flex-col sm:flex-row gap-6 justify-center"
         >
-          <button onClick={() => scrollToSection('performances')} className="btn-primary">
+         <button onClick={() => scrollToSection('performances')} className="btn-primary">
             Experience My Work
           </button>
           <button onClick={() => scrollToSection('contact')} className="btn-secondary">

@@ -306,7 +306,8 @@ const CulturalEngagements = () => {
   }
 
   return (
-    <section id="highlights" className="section-padding bg-brand-dark">
+    // ✅ 关键修复：id 从 "highlights" 改为 "performances"，与 Hero 中 scrollToSection('performances') 对齐
+    <section id="performances" className="section-padding bg-brand-dark">
       <div className="container-custom">
         {/* 标题区 */}
         <motion.div
@@ -333,7 +334,7 @@ const CulturalEngagements = () => {
           {categories.map((cat) => (
             <motion.button
               layout
-              type="button" // ✅ 防止表单默认行为导致意外重绘
+              type="button"
               key={cat.value}
               onClick={() => handleFilterChange(cat.value)}
               className={`px-5 py-2.5 rounded-full font-medium transition-colors duration-300 ${
@@ -352,7 +353,7 @@ const CulturalEngagements = () => {
           {/* Center Line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-brand-gold/40 via-brand-gold/60 to-transparent hidden md:block"></div>
 
-          {/* ✅ 修复：外层容器添加 layout，让高度变化也参与平滑过渡，消除闪跳 */}
+          {/* ✅ 外层容器添加 layout，让高度变化也参与平滑过渡 */}
           <motion.div layout className="space-y-16">
             <AnimatePresence mode="popLayout">
               {displayData.map((performance, index) => {
@@ -361,12 +362,11 @@ const CulturalEngagements = () => {
                 return (
                   <motion.div
                     key={performance.id}
-                    layout // ✅ 保留的卡片平滑滑动到新位置
+                    layout
                     variants={itemVariants}
                     initial="initial"
                     animate="animate"
                     exit="exit"
-                    // ✅ 关键修复：移除 whileInView，避免与 AnimatePresence 冲突导致二次位移
                     className="relative"
                   >
                     {/* 卡片容器 */}
