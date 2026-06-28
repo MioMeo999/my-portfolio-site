@@ -11,6 +11,7 @@ type PressItem = {
   logoUrl: string
   screenshotUrl?: string
   videoUrl?: string
+  posterUrl?: string
   link: string | null
 }
 
@@ -20,6 +21,7 @@ const pressData: PressItem[] = [
     name: 'CCTV',
     logoUrl: '/images/press/cctv-logo.jpg',
     videoUrl: '/videos/cctv-coverage.mp4',
+    posterUrl: '/images/press/cctv-screenshot.png',
     link: null,
   },
   {
@@ -195,6 +197,7 @@ const PressMedia = () => {
                   {selectedPress.videoUrl ? (
                     <video
                       src={selectedPress.videoUrl}
+                      poster={selectedPress.posterUrl}
                       controls
                       playsInline
                       preload="metadata"
