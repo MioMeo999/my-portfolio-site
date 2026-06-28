@@ -5,12 +5,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { X, ExternalLink } from 'lucide-react'
 
-const pressData = [
+type PressItem = {
+  id: string
+  name: string
+  logoUrl: string
+  screenshotUrl?: string
+  videoUrl?: string
+  link: string | null
+}
+
+const pressData: PressItem[] = [
   {
     id: '1',
     name: 'CCTV',
     logoUrl: '/images/press/cctv-logo.jpg',
-    screenshotUrl: '/images/press/cctv-screenshot.png',
+    videoUrl: '/videos/cctv-coverage.mp4',
     link: null,
   },
   {
@@ -64,7 +73,7 @@ const AdaptiveLogo = ({ src, alt }: { src: string; alt: string }) => {
 }
 
 const PressMedia = () => {
-  const [selectedPress, setSelectedPress] = useState<typeof pressData[0] | null>(null)
+  const [selectedPress, setSelectedPress] = useState<PressItem | null>(null)
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -171,7 +180,7 @@ const PressMedia = () => {
                 </button>
               </div>
 
-              {/* 截图区域 (flex-1 + overflow-y-auto 独立滚动) */}
+              {/* 媒体区域 (flex-1 + overflow-y-auto 独立滚动) */}
               <div
                 className={`flex-1 overflow-y-auto custom-scrollbar flex items-center justify-center p-6 ${
                   selectedPress.link ? 'cursor-pointer' : ''
@@ -183,14 +192,26 @@ const PressMedia = () => {
                   transition={{ duration: 0.4 }}
                   className="relative w-full flex items-center justify-center"
                 >
-                  <Image
-                    src={selectedPress.screenshotUrl}
-                    alt={`${selectedPress.name} coverage`}
-                    width={1200}
-                    height={800}
-                    className="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-2xl"
-                    unoptimized
-                  />
+                  {selectedPress.videoUrl ? (
+                    <video
+                      src={selectedPress.videoUrl}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-auto max-h-[70vh] rounded-lg shadow-2xl bg-black"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : selectedPress.screenshotUrl ? (
+                    <Image
+                      src={selectedPress.screenshotUrl}
+                      alt={`${selectedPress.name} coverage`}
+                      width={1200}
+                      height={800}
+                      className="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-2xl"
+                      unoptimized
+                    />
+                  ) : null}
                 </motion.div>
               </div>
 
