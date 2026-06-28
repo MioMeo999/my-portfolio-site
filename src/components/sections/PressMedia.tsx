@@ -35,7 +35,8 @@ const pressData: PressItem[] = [
     id: '3',
     name: 'CGTN',
     logoUrl: '/images/press/cgtn-logo.png',
-    screenshotUrl: '/images/press/cgtn-screenshot.png',
+    videoUrl: '/videos/cgtn-mid-autumn-clip.mp4',
+    posterUrl: '/images/press/cgtn-screenshot.png',
     link: 'https://newseu.cgtn.com/news/2025-10-06/Manchester-s-Mid-Autumn-festival-celebrates-China-UK-friendship-1HedEuOxHbi/p.html',
   },
 ]
@@ -166,7 +167,7 @@ const PressMedia = () => {
                   <span className="px-3 py-1 bg-brand-gold/15 rounded-full border border-brand-gold/20 text-brand-gold text-xs font-medium tracking-wider">
                     {selectedPress.name}
                   </span>
-                  {selectedPress.link && (
+                  {selectedPress.link && !selectedPress.videoUrl && (
                     <span className="text-gray-500 text-[10px] hidden sm:inline tracking-wide">
                       Click image to read full article
                     </span>
@@ -185,12 +186,16 @@ const PressMedia = () => {
               {/* 媒体区域 (flex-1 + overflow-y-auto 独立滚动) */}
               <div
                 className={`flex-1 overflow-y-auto custom-scrollbar flex items-center justify-center p-6 ${
-                  selectedPress.link ? 'cursor-pointer' : ''
+                  selectedPress.link && !selectedPress.videoUrl ? 'cursor-pointer' : ''
                 }`}
-                onClick={() => selectedPress.link && window.open(selectedPress.link, '_blank')}
+                onClick={() => {
+                  if (selectedPress.link && !selectedPress.videoUrl) {
+                    window.open(selectedPress.link, '_blank')
+                  }
+                }}
               >
                 <motion.div
-                  whileHover={selectedPress.link ? { scale: 1.015 } : {}}
+                  whileHover={selectedPress.link && !selectedPress.videoUrl ? { scale: 1.015 } : {}}
                   transition={{ duration: 0.4 }}
                   className="relative w-full flex items-center justify-center"
                 >
