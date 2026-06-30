@@ -4,9 +4,9 @@ export interface Performance {
   venue: string
   event: string
   description: string
-  category: 'uk-venues' | 'schools' | 'charity' // ✅ 移除了 'all'，它只属于筛选器
+  tags: Array<'performance' | 'workshop' | 'community'>
   images: string[]
-  link?: string // ✅ 新增可选链接字段
+  link?: string
 }
 
 export interface Video {

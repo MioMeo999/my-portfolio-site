@@ -9,6 +9,36 @@ import type { Performance } from '@/types'
 // ✅ 数据已升级为多标签系统（tags: string[]）
 const performanceData: Performance[] = [
   {
+    id: 'dragon-boat-festival-2026',
+    date: '2026-06-30',
+    venue: 'Salford, Greater Manchester',
+    event: 'BCI Partner School Performs at UK Chinese Dragon Boat Festival',
+    description: 'A vibrant celebration of Chinese culture at this year\'s UK Chinese Dragon Boat Festival, featuring a Guzheng solo performance that highlighted the beauty and elegance of traditional Chinese music alongside a Hakka-style Qilin Dance by Leeds New Vision Education Chinese School. The festival, now in its fourteenth year, brought together dragon boat racing, cultural performances, and community organisations, welcoming thousands of visitors in a shared spirit of cultural exchange and friendship between the UK and China. The performance was supported by the Business Confucius Institute at the University of Leeds.',
+    tags: ['performance', 'community'],
+    images: ['/images/timeline/dragon-boat-festival-2026.jpg'],
+    link: 'https://confucius.leeds.ac.uk/news/bci-partner-school-performs-at-uk-chinese-dragon-boat-festival/',
+  },
+  {
+    id: 'summer-celebration-2026',
+    date: '2026-06-26',
+    venue: 'University of Leeds, Wellbeing Hub',
+    event: 'Summer Celebration Special Performance – A Fusion of Chinese Melody & Indian Dance',
+    description: 'As part of this year\'s Summer Celebration, we presented a special live performance bringing together Chinese traditional music and Indian classical dance in a joyful cross-cultural fusion. Following a collaborative workshop, our musicians and dancer reunited on stage to share an hour of guzheng, dizi and pipa woven with expressive Indian dance movements. The relaxed, family-friendly session welcomed colleagues, families and children alike, offering a moment of beauty and connection between two rich traditions. This performance was supported by the Healthy Buildings Network at the University of Leeds.',
+    tags: ['performance', 'community'],
+    images: ['/images/timeline/summer-celebration-2026.jpg'],
+    link: 'https://www.tickettailor.com/events/leedsuniversity72/2257192',
+  },
+  {
+    id: 'sonic-belonging-2026',
+    date: '2026-06-04',
+    venue: 'Wellbeing Hub Lounge, University of Leeds',
+    event: 'Sonic Belonging – A Free Traditional Chinese Music Performance',
+    description: 'As part of the University\'s Wellbeing programme, we presented a lunchtime performance of traditional Chinese music in the warm, relaxed setting of the Wellbeing Hub Lounge. Featuring the guzheng, erhu, pipa, zhongruan, and dizi, the session offered listeners a chance to slow down, step away from their desks, and share a quiet hour of beauty and connection. A Chinese classical dancer also performed, adding graceful movement to the music. Designed around rest and connection, the drop-in event welcomed everyone - no background in music or prior knowledge needed, just an open ear and an hour to spare. This performance was supported by the Healthy Buildings Network at the University of Leeds.',
+    tags: ['performance', 'community'],
+    images: ['/images/timeline/sonic-belonging-2026.jpg'],
+    link: 'https://www.healthybuildingsnetwork.org/events/workshops/sonic/sonic.html',
+  },
+  {
     id: '19',
     date: '2026-05-15',
     venue: 'University of Leeds',
@@ -200,6 +230,11 @@ const performanceData: Performance[] = [
   },
 ]
 
+const sortByNewest = (items: Performance[]) =>
+  [...items].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
 // 智能自适应图片组件
 const AdaptiveImage = ({ src, alt }: { src: string; alt: string }) => {
   const [imageStyle, setImageStyle] = useState<{
@@ -281,26 +316,29 @@ const cardHoverVariant = {
   },
 }
 
+type EngagementFilter = 'all' | Performance['tags'][number]
+
 const CulturalEngagements = () => {
-  const [filter, setFilter] = useState<string>('all')
+  const [filter, setFilter] = useState<EngagementFilter>('all')
   const [showAll, setShowAll] = useState<boolean>(false)
 
   // ✅ 多标签筛选逻辑
+  const sortedPerformanceData = sortByNewest(performanceData)
   const filtered = filter === 'all'
-    ? performanceData
-    : performanceData.filter((p) => p.tags.includes(filter))
+    ? sortedPerformanceData
+    : sortedPerformanceData.filter((p) => p.tags.includes(filter))
 
   const displayData = showAll ? filtered : filtered.slice(0, 5)
 
   // ✅ 按钮 value 直接使用语义化标签名
-  const categories = [
+  const categories: Array<{ value: EngagementFilter; label: string }> = [
     { value: 'all', label: 'All' },
     { value: 'performance', label: 'Performances' },
     { value: 'workshop', label: 'Workshops' },
     { value: 'community', label: 'Community' },
   ]
 
-  const handleFilterChange = (value: string) => {
+  const handleFilterChange = (value: EngagementFilter) => {
     setFilter(value)
     setShowAll(false)
   }
